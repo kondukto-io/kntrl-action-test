@@ -1,0 +1,76 @@
+name: Test kntrl Action
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: Monitor mode — log everything, block nothing
+  # ──────────────────────────────────────────────
+  monitor:
+    name: "Monitor mode (npm + pip)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kondukto-io/kntrl-action@v1
+        with:
+          mode: monitor
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: npm install
+        run: npm install
+
+      - name: npm test
+        run: npm test
+
+      - name: pip install
+        run: pip install -r requirements.txt
+
+      - name: python test
+        run: python app.py
+
+  # ──────────────────────────────────────────────
+  # Job 2: Trace mode — enforce default rules
+  # ──────────────────────────────────────────────
+  enforce:
+    name: "Trace mode (npm + pip)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kondukto-io/kntrl-action@v1
+        with:
+          mode: trace
+          allowed_hosts: "api.github.com"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: npm install
+        run: npm install
+
+      - name: npm test
+        run: npm test
+
+      - name: pip install
+        run: pip install -r requirements.txt
+
+      - name: python test
+        run: python app.py
