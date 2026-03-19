@@ -1,0 +1,12 @@
+{
+  "name": "kntrl-action-test",
+  "version": "1.0.0",
+  "description": "Test project for kntrl GitHub Action",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "lodash": "^4.17.21"
+  }
+}
