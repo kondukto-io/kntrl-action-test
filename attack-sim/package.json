@@ -1,0 +1,9 @@
+{
+  "name": "attack-sim",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simulates malicious postinstall hooks for kntrl testing",
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  }
+}
