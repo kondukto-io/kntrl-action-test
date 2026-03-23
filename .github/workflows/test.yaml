@@ -41,6 +41,9 @@ jobs:
       - name: python test
         run: python app.py
 
+      - uses: kondukto-io/kntrl-action/stop@v1
+        if: always()
+
   # ──────────────────────────────────────────────
   # Job 2: Trace mode — enforce default rules
   # ──────────────────────────────────────────────
@@ -74,3 +77,6 @@ jobs:
 
       - name: python test
         run: python app.py
+
+      - uses: kondukto-io/kntrl-action/stop@v1
+        if: always()
